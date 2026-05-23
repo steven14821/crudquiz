@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${club.nombre} + ' — FutbolDB'">Detalle</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/nav :: sidebar}" th:with="currentPage='clubs'"></div>
+
+<main class="main">
+  <div class="page-header">
+    <div>
+      <h2 th:text="${club.nombre}">Club</h2>
+      <p>Detalle completo de relaciones JPA</p>
+    </div>
+    <div style="display:flex;gap:10px">
+      <a th:href="@{/clubs/{id}/editar(id=${club.id})}" class="btn btn-outline">Editar</a>
+      <a th:href="@{/clubs}" class="btn btn-outline">← Volver</a>
+    </div>
+  </div>
+
+  <!-- Info básica -->
+  <div class="detail-grid">
+    <div class="detail-item">
+      <div class="label">ID</div>
+      <div class="value" th:text="${club.id}"></div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Nombre</div>
+      <div class="value" th:text="${club.nombre}"></div>
+    </div>
+  </div>
+
+  <!-- @OneToOne -->
+  <div class="relation-block">
+    <h4>⚡ Entrenador — @OneToOne (EAGER)</h4>
+    <div class="detail-grid" th:if="${club.entrenador != null}">
+      <div class="detail-item">
+        <div class="label">Nombre completo</div>
+        <div class="value" th:text="${club.entrenador.nombre + ' ' + club.entrenador.apellido}"></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Edad / Nacionalidad</div>
+        <div class="value" th:text="${club.entrenador.edad + ' · ' + club.entrenador.nacionalidad}"></div>
+      </div>
+    </div>
+    <p th:unless="${club.entrenador != null}" style="color:var(--muted)">Sin entrenador asignado</p>
+  </div>
+
+  <!-- @ManyToOne -->
+  <div class="relation-block">
+    <h4>🌐 Asociación — @ManyToOne (EAGER)</h4>
+    <div class="detail-grid" th:if="${club.asociacion != null}">
+      <div class="detail-item">
+        <div class="label">Nombre</div>
+        <div class="value" th:text="${club.asociacion.nombre}"></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">País / Presidente</div>
+        <div class="value" th:text="${club.asociacion.pais + ' · ' + club.asociacion.presidente}"></div>
+      </div>
+    </div>
+    <p th:unless="${club.asociacion != null}" style="color:var(--muted)">Sin asociación asignada</p>
+  </div>
+
+  <!-- @OneToMany -->
+  <div class="relation-block">
+    <h4>👟 Jugadores — @OneToMany (LAZY) &nbsp;
+      <span class="badge badge-gold" th:text="${#lists.size(club.jugadores)} + ' en plantel'"></span>
+    </h4>
+    <div class="pill-list" th:if="${!#lists.isEmpty(club.jugadores)}">
+      <span class="pill" th:each="j : ${club.jugadores}"
+            th:text="'#' + ${j.numero} + ' ' + ${j.nombre} + ' ' + ${j.apellido} + ' · ' + ${j.posicion}"></span>
+    </div>
+    <p th:if="${#lists.isEmpty(club.jugadores)}" style="color:var(--muted)">Sin jugadores registrados</p>
+  </div>
+
+  <!-- @ManyToMany -->
+  <div class="relation-block">
+    <h4>🏆 Competiciones — @ManyToMany (LAZY)</h4>
+    <div class="pill-list" th:if="${!#lists.isEmpty(club.competiciones)}">
+      <span class="badge" th:each="c : ${club.competiciones}" th:text="${c.nombre}"></span>
+    </div>
+    <p th:if="${#lists.isEmpty(club.competiciones)}" style="color:var(--muted)">Sin competiciones registradas</p>
+  </div>
+</main>
+</body>
+</html>

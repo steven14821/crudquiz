@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><title>Jugadores — FutbolDB</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: sidebar}" th:with="currentPage='jugadores'"></div>
+<main class="main">
+  <div class="page-header">
+    <div><h2>JUGA<span>DORES</span></h2><p>Relación @OneToMany desde Club</p></div>
+    <a th:href="@{/jugadores/nuevo}" class="btn btn-primary">＋ Nuevo</a>
+  </div>
+  <div class="table-card">
+    <div class="empty-state" th:if="${#lists.isEmpty(jugadores)}">
+      <span class="empty-icon">👟</span><p>No hay jugadores.</p>
+      <a th:href="@{/jugadores/nuevo}" class="btn btn-primary">Agregar jugador</a>
+    </div>
+    <table th:unless="${#lists.isEmpty(jugadores)}">
+      <thead><tr><th>#</th><th>Dorsal</th><th>Nombre</th><th>Posición</th><th>Acciones</th></tr></thead>
+      <tbody>
+        <tr th:each="j : ${jugadores}">
+          <td style="color:var(--muted)" th:text="${j.id}"></td>
+          <td>
+            <span style="font-family:var(--font-h);font-size:22px;font-weight:800;color:var(--gold)"
+                  th:text="${j.numero}"></span>
+          </td>
+          <td style="font-weight:600" th:text="${j.nombre + ' ' + j.apellido}"></td>
+          <td><span class="badge" th:text="${j.posicion}"></span></td>
+          <td><div class="actions">
+            <a th:href="@{/jugadores/{id}/editar(id=${j.id})}" class="btn btn-outline btn-sm">Editar</a>
+            <a th:href="@{/jugadores/{id}/eliminar(id=${j.id})}" class="btn btn-danger btn-sm"
+               onclick="return confirm('¿Eliminar?')">Eliminar</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

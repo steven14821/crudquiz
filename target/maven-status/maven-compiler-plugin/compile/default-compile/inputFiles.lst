@@ -1,0 +1,17 @@
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\controladores\AsociacionController.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\controladores\ClubController.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\controladores\CompeticionController.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\controladores\EntrenadorController.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\controladores\HomeController.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\controladores\JugadorController.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\CrudquizApplication.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\entidades\Asociacion.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\entidades\Club.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\entidades\Competicion.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\entidades\Entrenador.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\entidades\Jugador.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\repositorio\AsociacionRepository.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\repositorio\ClubRepository.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\repositorio\CompeticionRepository.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\repositorio\EntrenadorRepository.java
+D:\TRABAJOS SPRINGBOOT\CRUDQUIZ\src\main\java\com\crudquiz\app\repositorio\JugadorRepository.java
