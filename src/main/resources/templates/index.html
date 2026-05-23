@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard — FutbolDB</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/nav :: sidebar}" th:with="currentPage='home'"></div>
+
+<main class="main">
+  <div class="page-header">
+    <div>
+      <h2>Dash<span>board</span></h2>
+      <p>Resumen general del sistema de relaciones JPA. Cinco entidades, cuatro relaciones, una sola fuente de verdad.</p>
+    </div>
+    <div style="font-family: var(--font-h); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted);">
+      Nº 01 / Vista general
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <a th:href="@{/clubs}" class="stat-card">
+      <span class="stat-icon">Clubes</span>
+      <div class="stat-num" th:text="${totalClubes}">0</div>
+      <div class="stat-label">Clubes registrados</div>
+    </a>
+    <a th:href="@{/entrenadores}" class="stat-card">
+      <span class="stat-icon">Staff</span>
+      <div class="stat-num" th:text="${totalEntrenadores}">0</div>
+      <div class="stat-label">Entrenadores</div>
+    </a>
+    <a th:href="@{/jugadores}" class="stat-card">
+      <span class="stat-icon">Plantel</span>
+      <div class="stat-num" th:text="${totalJugadores}">0</div>
+      <div class="stat-label">Jugadores</div>
+    </a>
+    <a th:href="@{/asociaciones}" class="stat-card">
+      <span class="stat-icon">Federación</span>
+      <div class="stat-num" th:text="${totalAsociaciones}">0</div>
+      <div class="stat-label">Asociaciones</div>
+    </a>
+    <a th:href="@{/competiciones}" class="stat-card">
+      <span class="stat-icon">Torneos</span>
+      <div class="stat-num" th:text="${totalCompeticiones}">0</div>
+      <div class="stat-label">Competiciones</div>
+    </a>
+  </div>
+
+  <div style="font-family: var(--font-b); font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; font-weight: 500;">
+    Índice / Relaciones JPA
+  </div>
+
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 22%;">Relación</th>
+          <th style="width: 28%;">Entidades</th>
+          <th style="width: 18%;">Fetch</th>
+          <th>Efecto en BD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge">@OneToOne</span></td>
+          <td>Club &nbsp;&rarr;&nbsp; Entrenador</td>
+          <td><span class="badge badge-gold">Eager</span></td>
+          <td>FK <code>entrenador_id</code> en clubes</td>
+        </tr>
+        <tr>
+          <td><span class="badge">@OneToMany</span></td>
+          <td>Club &nbsp;&rarr;&nbsp; Jugadores</td>
+          <td><span class="badge badge-gold">Lazy</span></td>
+          <td>FK <code>id_club</code> en jugadores</td>
+        </tr>
+        <tr>
+          <td><span class="badge">@ManyToOne</span></td>
+          <td>Club &nbsp;&rarr;&nbsp; Asociación</td>
+          <td><span class="badge badge-gold">Eager</span></td>
+          <td>FK <code>asociacion_id</code> en clubes</td>
+        </tr>
+        <tr>
+          <td><span class="badge">@ManyToMany</span></td>
+          <td>Club &nbsp;&harr;&nbsp; Competición</td>
+          <td><span class="badge badge-gold">Lazy</span></td>
+          <td>Tabla <code>clubes_competiciones</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

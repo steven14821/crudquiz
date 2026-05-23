@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><title>Entrenadores — FutbolDB</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: sidebar}" th:with="currentPage='entrenadores'"></div>
+<main class="main">
+  <div class="page-header">
+    <div><h2>ENTRE<span>NADORES</span></h2><p>Relación @OneToOne con Club</p></div>
+    <a th:href="@{/entrenadores/nuevo}" class="btn btn-primary">＋ Nuevo</a>
+  </div>
+  <div class="table-card">
+    <div class="empty-state" th:if="${#lists.isEmpty(entrenadores)}">
+      <span class="empty-icon">🎯</span><p>No hay entrenadores.</p>
+      <a th:href="@{/entrenadores/nuevo}" class="btn btn-primary">Agregar entrenador</a>
+    </div>
+    <table th:unless="${#lists.isEmpty(entrenadores)}">
+      <thead><tr><th>#</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Nacionalidad</th><th>Acciones</th></tr></thead>
+      <tbody>
+        <tr th:each="e : ${entrenadores}">
+          <td style="color:var(--muted)" th:text="${e.id}"></td>
+          <td style="font-weight:600" th:text="${e.nombre}"></td>
+          <td th:text="${e.apellido}"></td>
+          <td th:text="${e.edad}"></td>
+          <td><span class="badge" th:text="${e.nacionalidad}"></span></td>
+          <td><div class="actions">
+            <a th:href="@{/entrenadores/{id}/editar(id=${e.id})}" class="btn btn-outline btn-sm">Editar</a>
+            <a th:href="@{/entrenadores/{id}/eliminar(id=${e.id})}" class="btn btn-danger btn-sm"
+               onclick="return confirm('¿Eliminar?')">Eliminar</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="sidebar" class="sidebar">
+  <div class="sidebar-logo">
+    <span class="ball">⚽</span>
+    <h1>FutbolDB</h1>
+    <span>JPA Relations</span>
+  </div>
+
+  <div class="nav-section">
+    <span class="nav-label">Gestión</span>
+    <a th:href="@{/}" class="nav-link" th:classappend="${currentPage == 'home'} ? 'active'">
+      <span class="icon">▦</span> Dashboard
+    </a>
+    <a th:href="@{/clubs}" class="nav-link" th:classappend="${currentPage == 'clubs'} ? 'active'">
+      <span class="icon">🏟</span> Clubes
+    </a>
+    <a th:href="@{/entrenadores}" class="nav-link" th:classappend="${currentPage == 'entrenadores'} ? 'active'">
+      <span class="icon">🎯</span> Entrenadores
+    </a>
+    <a th:href="@{/jugadores}" class="nav-link" th:classappend="${currentPage == 'jugadores'} ? 'active'">
+      <span class="icon">👟</span> Jugadores
+    </a>
+    <span class="nav-label" style="margin-top:16px">Estructura</span>
+    <a th:href="@{/asociaciones}" class="nav-link" th:classappend="${currentPage == 'asociaciones'} ? 'active'">
+      <span class="icon">🌐</span> Asociaciones
+    </a>
+    <a th:href="@{/competiciones}" class="nav-link" th:classappend="${currentPage == 'competiciones'} ? 'active'">
+      <span class="icon">🏆</span> Competiciones
+    </a>
+    <span class="nav-label" style="margin-top:16px">Base de Datos</span>
+    <a href="/h2-console" target="_blank" class="nav-link">
+      <span class="icon">🗄</span> H2 Console
+    </a>
+  </div>
+
+  <div class="sidebar-footer">Spring Boot · JPA Relations</div>
+</nav>
+</body>
+</html>

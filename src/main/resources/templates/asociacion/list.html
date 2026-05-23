@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><title>Asociaciones — FutbolDB</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: sidebar}" th:with="currentPage='asociaciones'"></div>
+<main class="main">
+  <div class="page-header">
+    <div><h2>ASOCI<span>ACIONES</span></h2><p>Relación @ManyToOne desde Club</p></div>
+    <a th:href="@{/asociaciones/nuevo}" class="btn btn-primary">＋ Nueva</a>
+  </div>
+  <div class="table-card">
+    <div class="empty-state" th:if="${#lists.isEmpty(asociaciones)}">
+      <span class="empty-icon">🌐</span><p>No hay asociaciones.</p>
+      <a th:href="@{/asociaciones/nuevo}" class="btn btn-primary">Agregar asociación</a>
+    </div>
+    <table th:unless="${#lists.isEmpty(asociaciones)}">
+      <thead><tr><th>#</th><th>Nombre</th><th>País</th><th>Presidente</th><th>Acciones</th></tr></thead>
+      <tbody>
+        <tr th:each="a : ${asociaciones}">
+          <td style="color:var(--muted)" th:text="${a.id}"></td>
+          <td style="font-family:var(--font-h);font-size:16px;font-weight:700" th:text="${a.nombre}"></td>
+          <td th:text="${a.pais}"></td>
+          <td th:text="${a.presidente}"></td>
+          <td><div class="actions">
+            <a th:href="@{/asociaciones/{id}/editar(id=${a.id})}" class="btn btn-outline btn-sm">Editar</a>
+            <a th:href="@{/asociaciones/{id}/eliminar(id=${a.id})}" class="btn btn-danger btn-sm"
+               onclick="return confirm('¿Eliminar?')">Eliminar</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

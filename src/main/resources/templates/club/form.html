@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Club — FutbolDB</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/nav :: sidebar}" th:with="currentPage='clubs'"></div>
+
+<main class="main">
+  <div class="page-header">
+    <div>
+      <h2 th:if="${club == null}">NUEVO <span>CLUB</span></h2>
+      <h2 th:if="${club != null}">EDITAR <span>CLUB</span></h2>
+      <p>Configura las relaciones @OneToOne, @OneToMany, @ManyToOne y @ManyToMany</p>
+    </div>
+    <a th:href="@{/clubs}" class="btn btn-outline">← Volver</a>
+  </div>
+
+  <div class="form-card">
+    <form th:action="@{/clubs/guardar}" method="post">
+      <input type="hidden" name="id" th:value="${club?.id}">
+
+      <div class="form-grid">
+        <!-- Nombre -->
+        <div class="form-group full">
+          <label>Nombre del Club</label>
+          <input type="text" name="nombre" th:value="${club?.nombre}"
+                 placeholder="Ej: Atlético Nacional" required>
+        </div>
+
+        <!-- @OneToOne: Entrenador -->
+        <div class="form-group">
+          <label>⚡ Entrenador (@OneToOne)</label>
+          <select name="entrenadorId" required>
+            <option value="">— Seleccionar —</option>
+            <option th:each="e : ${entrenadores}"
+                    th:value="${e.id}"
+                    th:text="${e.nombre + ' ' + e.apellido}"
+                    th:selected="${club?.entrenador?.id == e.id}"></option>
+          </select>
+          <span class="form-hint">Un club tiene un único entrenador</span>
+        </div>
+
+        <!-- @ManyToOne: Asociacion -->
+        <div class="form-group">
+          <label>🌐 Asociación (@ManyToOne)</label>
+          <select name="asociacionId" required>
+            <option value="">— Seleccionar —</option>
+            <option th:each="a : ${asociaciones}"
+                    th:value="${a.id}"
+                    th:text="${a.nombre + ' (' + a.pais + ')'}"
+                    th:selected="${club?.asociacion?.id == a.id}"></option>
+          </select>
+          <span class="form-hint">Muchos clubes pertenecen a una asociación</span>
+        </div>
+
+        <!-- @OneToMany: Jugadores -->
+        <div class="form-group">
+          <label>👟 Jugadores (@OneToMany)</label>
+          <select name="jugadoresIds" multiple>
+            <option th:each="j : ${jugadores}"
+                    th:value="${j.id}"
+                    th:text="${j.nombre + ' ' + j.apellido + ' (#' + j.numero + ')'}"
+                    th:selected="${club?.jugadores != null && #lists.contains(club.jugadores, j)}"></option>
+          </select>
+          <span class="form-hint">Ctrl+Click para seleccionar varios</span>
+        </div>
+
+        <!-- @ManyToMany: Competiciones -->
+        <div class="form-group">
+          <label>🏆 Competiciones (@ManyToMany)</label>
+          <select name="competicionesIds" multiple>
+            <option th:each="c : ${competiciones}"
+                    th:value="${c.id}"
+                    th:text="${c.nombre}"
+                    th:selected="${club?.competiciones != null && #lists.contains(club.competiciones, c)}"></option>
+          </select>
+          <span class="form-hint">Un club puede estar en varias competiciones</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">💾 Guardar Club</button>
+        <a th:href="@{/clubs}" class="btn btn-outline">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</main>
+</body>
+</html>
