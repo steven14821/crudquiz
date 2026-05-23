@@ -17,7 +17,7 @@ public class Club {
 	 @JoinColumn(name = "entrenador_id", nullable = false)
 	 private Entrenador entrenador;
 	 
-	 @OneToMany(fetch = FetchType.LAZY)
+	 @OneToMany(fetch = FetchType.EAGER)
 	 @JoinColumn(name= "id_club")
 	 private List<Jugador> jugadores;
 	 
