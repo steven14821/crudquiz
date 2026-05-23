@@ -25,7 +25,7 @@ public class Club {
 	 @JoinColumn(name = "asociacion_id")
 	 private Asociacion asociacion;
 	 
-	 @ManyToMany(fetch = FetchType.LAZY)
+	 @ManyToMany(fetch = FetchType.EAGER)
 	 private List<Competicion> competiciones;
 
 	 public Club() {
